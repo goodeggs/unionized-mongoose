@@ -1,0 +1,35 @@
+{
+  "name": "mongoose-factory",
+  "version": "0.0.0",
+  "description": "Create factories out of mongoose models",
+  "author": "Good Eggs <open-source@goodeggs.com>",
+  "contributors": [
+    "Max Edmands <me@maxedmands.com>"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/goodeggs/mongoose_factory.git"
+  },
+  "homepage": "https://github.com/goodeggs/mongoose_factory",
+  "bugs": "https://github.com/goodeggs/mongoose_factory/issues",
+  "dependencies": {
+    "bluebird": "^2.3.2",
+    "faker": "^1.1.0",
+    "mongoose": "^3.8.16",
+    "unionized": "^2.6.0"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "coffee-script": ">=1.7.x",
+    "fibrous": "^0.3.3",
+    "mocha": "~1.x.x"
+  },
+  "scripts": {
+    "compile": "coffee --bare --compile --output lib/ src/",
+    "build": "npm run compile",
+    "test": "mocha",
+    "pretest": "npm run build"
+  }
+}
