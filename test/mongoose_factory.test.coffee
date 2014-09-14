@@ -1,4 +1,4 @@
-mongooseFactory = require '..'
+mongooseFactory = require '../src'
 {expect} = require 'chai'
 mongoose = require 'mongoose'
 fibrous = require 'fibrous'
