@@ -10,6 +10,12 @@ buildFactoryFromSchema = (schema, mongoose) ->
 
   schema.eachPath (pathName, schemaType) ->
     switch
+      when schemaType instanceof DocumentArray
+        promises.push embedArray pathName, 2, unionized.define (callback) ->
+          buildFactoryFromSchema.call(@, schemaType.schema, mongoose).nodeify(callback)
+      when pathName is '_id'
+        definition.set pathName, new mongoose.Types.ObjectId()
+      when not schemaType.isRequired then return
       when schemaType.defaultValue? and typeof schemaType.defaultValue isnt 'function'
         definition.set pathName, schemaType.defaultValue
       when schemaType.enumValues?.length > 0
@@ -24,9 +30,6 @@ buildFactoryFromSchema = (schema, mongoose) ->
         definition.set pathName, faker.Lorem.words().join ' '
       when schemaType instanceof mongoose.SchemaTypes.Number
         definition.set pathName, faker.random.number 100
-      when schemaType instanceof DocumentArray
-        promises.push embedArray pathName, 2, unionized.define (callback) ->
-          buildFactoryFromSchema.call(@, schemaType.schema, mongoose).nodeify(callback)
   Promise.all promises
 
 module.exports = mongooseFactory = (Model) ->

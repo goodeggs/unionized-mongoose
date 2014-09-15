@@ -13,6 +13,7 @@ describe 'mongoose-factory', ->
       eyeColor: { type: String, default: 'yellow', required: true }
       isHunter: { type: Boolean, required: true }
       bornAt: { type: Date, required: true }
+      description: String
       paws: [
         nickname: String
         clawCount: Number
@@ -61,3 +62,6 @@ describe 'mongoose-factory', ->
 
       it 'can generate an array', ->
         expect(instance.paws).to.be.an.instanceOf Array
+
+      it 'will ignore non-required attributes', ->
+        expect(instance.description).to.be.undefined
