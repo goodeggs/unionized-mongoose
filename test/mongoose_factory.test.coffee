@@ -1,6 +1,7 @@
 mongooseFactory = require '../src'
 {expect} = require 'chai'
 mongoose = require 'mongoose'
+moment = require 'moment'
 
 describe 'mongoose-factory', ->
 
@@ -11,6 +12,7 @@ describe 'mongoose-factory', ->
       personality: { type: String, required: true, enum: ['friendly', 'fierce', 'antisocial', 'changeable'] }
       eyeColor: { type: String, default: 'yellow', required: true }
       isHunter: { type: Boolean, required: true }
+      bornAt: { type: Date, required: true }
       paws: [
         nickname: String
         clawCount: Number
@@ -48,6 +50,11 @@ describe 'mongoose-factory', ->
 
       it 'can generate a boolean', ->
         expect(instance.isHunter).to.be.a 'boolean'
+
+      it 'can generate a date (default in 2013)', ->
+        born = moment(instance.bornAt)
+        expect(born.isAfter  '2012-12-31').to.be.ok
+        expect(born.isBefore '2014-01-01').to.be.ok
 
       it 'will use provided defaults', ->
         expect(instance.eyeColor).to.equal 'yellow'
