@@ -19,6 +19,7 @@ describe 'mongoose-factory', ->
 
     it 'generates a factory', fibrous ->
       kitten = mongooseFactory(Kitten).sync.json 'paws[]': 4
+      expect(kitten).to.have.property '_id'
       expect(kitten).to.have.property 'name'
       expect(kitten.adorableness).to.be.within(0, 100)
       expect(kitten.paws).to.have.length 4
