@@ -8,6 +8,7 @@ describe 'mongoose-factory', ->
     Model = mongoose.model 'Kitten', mongoose.Schema
       name: { type: String, required: true }
       cutenessPercentile: { type: Number, required: true }
+      personality: { type: String, required: true, enum: ['friendly', 'fierce', 'antisocial', 'changeable'] }
       paws: [
         nickname: String
         clawCount: Number
@@ -39,6 +40,9 @@ describe 'mongoose-factory', ->
 
       it 'can generate a number', ->
         expect(instance.cutenessPercentile).to.be.a 'number'
+
+      it 'can generate within an enum', ->
+        expect(instance.personality in ['friendly', 'fierce', 'antisocial', 'changeable']).to.be.ok
 
       it 'can generate an array', ->
         expect(instance.paws).to.be.an.instanceOf Array

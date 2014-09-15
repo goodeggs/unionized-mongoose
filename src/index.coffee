@@ -10,10 +10,10 @@ buildFactoryFromSchema = (schema, mongoose) ->
 
   schema.eachPath (pathName, schemaType) ->
     switch
+      when schemaType.enumValues?.length > 0
+        definition.set pathName, faker.random.array_element schemaType.enumValues
       when schemaType instanceof ObjectId
         definition.set pathName, new mongoose.Types.ObjectId()
-      when schemaType instanceof String and pathName is 'name'
-        definition.set pathName, faker.Name.findName()
       when schemaType instanceof String
         definition.set pathName, faker.Lorem.words().join ' '
       when schemaType instanceof Number
