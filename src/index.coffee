@@ -10,6 +10,8 @@ buildFactoryFromSchema = (schema, mongoose) ->
 
   schema.eachPath (pathName, schemaType) ->
     switch
+      when schemaType.defaultValue? and typeof schemaType.defaultValue isnt 'function'
+        definition.set pathName, schemaType.defaultValue
       when schemaType.enumValues?.length > 0
         definition.set pathName, faker.random.array_element schemaType.enumValues
       when schemaType instanceof ObjectId
