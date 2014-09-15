@@ -3,7 +3,7 @@ faker = require 'faker'
 Promise = require 'bluebird'
 
 buildFactoryFromSchema = (schema, mongoose) ->
-  {ObjectId, String, Number, DocumentArray} = mongoose.SchemaTypes
+  {ObjectId, String, Number, DocumentArray, Boolean} = mongoose.SchemaTypes
   definition = @
   embedArray = Promise.promisify(definition.embedArray, definition)
   promises = []
@@ -16,6 +16,8 @@ buildFactoryFromSchema = (schema, mongoose) ->
         definition.set pathName, faker.random.array_element schemaType.enumValues
       when schemaType instanceof ObjectId
         definition.set pathName, new mongoose.Types.ObjectId()
+      when schemaType instanceof Boolean
+        definition.set pathName, faker.random.array_element [true, false]
       when schemaType instanceof String
         definition.set pathName, faker.Lorem.words().join ' '
       when schemaType instanceof Number

@@ -9,7 +9,8 @@ describe 'mongoose-factory', ->
       name: { type: String, required: true }
       cutenessPercentile: { type: Number, required: true }
       personality: { type: String, required: true, enum: ['friendly', 'fierce', 'antisocial', 'changeable'] }
-      eyeColor: { type: String, default: 'yellow' }
+      eyeColor: { type: String, default: 'yellow', required: true }
+      isHunter: { type: Boolean, required: true }
       paws: [
         nickname: String
         clawCount: Number
@@ -44,6 +45,9 @@ describe 'mongoose-factory', ->
 
       it 'can generate within an enum', ->
         expect(instance.personality in ['friendly', 'fierce', 'antisocial', 'changeable']).to.be.ok
+
+      it 'can generate a boolean', ->
+        expect(instance.isHunter).to.be.a 'boolean'
 
       it 'will use provided defaults', ->
         expect(instance.eyeColor).to.equal 'yellow'
