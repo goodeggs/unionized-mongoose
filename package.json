@@ -1,6 +1,6 @@
 {
   "name": "mongoose-factory",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Create factories out of mongoose models",
   "author": "Good Eggs <open-source@goodeggs.com>",
   "contributors": [
