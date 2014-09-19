@@ -1,12 +1,8 @@
-# Mongoose Factory
-[![NPM version](https://badge.fury.io/js/mongoose-factory.png)](http://badge.fury.io/js/mongoose-factory)
+# unionized-mongoose
 
+[![NPM version](https://badge.fury.io/js/unionized-mongoose.png)](http://badge.fury.io/js/unionized-mongoose)
 
-
-[![Build Status](https://travis-ci.org/goodeggs/mongoose_factory.png)](https://travis-ci.org/goodeggs/mongoose_factory)
-
-
-Create factories out of mongoose models
+Create unionized factories out of mongoose models
 
 ## Contributing
 
@@ -18,11 +14,11 @@ $ npm test
 
 ## Code of Conduct
 
-[Code of Conduct](https://github.com/goodeggs/mongoose-factory/blob/master/CODE_OF_CONDUCT.md)
+[Code of Conduct](https://github.com/goodeggs/unionized-mongoose/blob/master/CODE_OF_CONDUCT.md)
 for contributing to or participating in this project.
-## License
 
-[MIT](https://github.com/goodeggs/mongoose-factory/blob/master/LICENSE.md)
+## License
+[MIT](https://github.com/goodeggs/unionized-mongoose/blob/master/LICENSE.md)
 
 
 
