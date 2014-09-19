@@ -33,6 +33,7 @@ buildFactoryFromSchema = (schema, mongoose) ->
   Promise.all promises
 
 module.exports = mongooseFactory = (Model) ->
-  unionized.define Model, (callback) ->
+  unionized.define Model, (args...) ->
+    callback = args.pop()
     mongoose = Model.db.base
     buildFactoryFromSchema.call(@, Model.schema, mongoose).nodeify(callback)
