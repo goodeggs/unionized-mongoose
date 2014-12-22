@@ -1,4 +1,4 @@
-unionized = require 'unionized/src/unionized'
+unionized = require 'unionized'
 faker = require 'faker'
 Promise = require 'bluebird'
 
@@ -32,8 +32,9 @@ buildFactoryFromSchema = (schema, mongoose) ->
         definition.set pathName, faker.random.number 100
   Promise.all promises
 
-module.exports = mongooseFactory = (Model) ->
-  unionized.define Model, (args...) ->
+module.exports = mongooseFactory = (name, Model) ->
+  [name, Model] = [name.modelName.toLowerCase(), name] if not Model?
+  unionized.define name, Model, (args...) ->
     callback = args.pop()
     mongoose = Model.db.base
     buildFactoryFromSchema.call(@, Model.schema, mongoose).nodeify(callback)

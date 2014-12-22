@@ -16,7 +16,9 @@
   "bugs": "https://github.com/goodeggs/unionized-mongoose/issues",
   "dependencies": {
     "bluebird": "^2.3.2",
-    "faker": "^1.1.0",
+    "faker": "^1.1.0"
+  },
+  "peerDependencies": {
     "unionized": "^2.6.0"
   },
   "devDependencies": {
@@ -25,7 +27,8 @@
     "fibrous": "^0.3.3",
     "mocha": "~1.x.x",
     "moment": "^2.8.3",
-    "mongoose": "^3.8.16"
+    "mongoose": "^3.8.16",
+    "unionized": "^2.6.0"
   },
   "scripts": {
     "compile": "coffee --bare --compile --output lib/ src/",
