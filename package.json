@@ -10,10 +10,10 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/goodeggs/mongoose_factory.git"
+    "url": "git://github.com/goodeggs/unionized-mongoose.git"
   },
-  "homepage": "https://github.com/goodeggs/mongoose_factory",
-  "bugs": "https://github.com/goodeggs/mongoose_factory/issues",
+  "homepage": "https://github.com/goodeggs/unionized-mongoose",
+  "bugs": "https://github.com/goodeggs/unionized-mongoose/issues",
   "dependencies": {
     "bluebird": "^2.3.2",
     "faker": "^1.1.0",
