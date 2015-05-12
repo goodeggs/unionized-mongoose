@@ -43,7 +43,8 @@ buildFactoryFromSchema = (schema, mongoose) ->
   Promise.all promises
 
 module.exports = mongooseFactory = (name, Model) ->
-  [name, Model] = [name.modelName.toLowerCase(), name] if not Model?
+  unless Model?
+    [name, Model] = [name.modelName.toLowerCase(), name]
 
   unionized.define name, Model, (args...) ->
     callback = args.pop()
