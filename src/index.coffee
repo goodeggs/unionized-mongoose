@@ -25,9 +25,9 @@ buildFactoryFromSchema = (schema, mongoose) ->
       when schemaType instanceof mongoose.SchemaTypes.Boolean
         definition.set pathName, faker.random.array_element [true, false]
       when schemaType instanceof mongoose.SchemaTypes.Date
-        definition.set pathName, faker.Date.between(new Date('2013-01-01'), new Date('2014-01-01'))
+        definition.set pathName, faker.date.between(new Date('2013-01-01'), new Date('2014-01-01'))
       when schemaType instanceof mongoose.SchemaTypes.String
-        definition.set pathName, faker.Lorem.words().join ' '
+        definition.set pathName, faker.lorem.words().join ' '
       when schemaType instanceof mongoose.SchemaTypes.Number
         definition.set pathName, faker.random.number 100
   Promise.all promises
