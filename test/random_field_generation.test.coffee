@@ -21,6 +21,10 @@ describe 'random field generation', ->
       owner:
         name: { type: String, required: true }
         age: Number
+    breed:
+      type: String
+      factory: -> 'Tabby'
+      required: true
 
   beforeEach ->
     @factory = mongooseFactory Model
@@ -59,10 +63,12 @@ describe 'random field generation', ->
     it 'will ignore non-required attributes', ->
       expect(@instance.description).to.be.undefined
 
-    describe 'a required deeply nested attribute', ->
-      it 'is generated', ->
-        expect(@instance?.meta?.owner?.name).to.have.length.of.at.least 1
-        expect(@instance?.meta?.owner?.age).not.to.be.ok
+    it 'generates deeply-nested attributes', ->
+      expect(@instance?.meta?.owner?.name).to.have.length.of.at.least 1
+      expect(@instance?.meta?.owner?.age).not.to.be.ok
+
+    it 'uses `factory` callbacks', ->
+      expect(@instance).to.have.property 'breed', 'Tabby'
 
   describe 'an instance generated with inputs', ->
     beforeEach (done) ->

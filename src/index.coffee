@@ -19,6 +19,9 @@ buildFactoryFromSchema = (schema, mongoose) ->
 
       when not schemaType.isRequired then return
 
+      when schemaType.options?.factory?
+        definition.set pathName, schemaType.options.factory()
+
       when schemaType.defaultValue? and typeof schemaType.defaultValue isnt 'function'
         definition.set pathName, schemaType.defaultValue
 
