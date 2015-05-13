@@ -118,3 +118,26 @@ describe 'random field generation', ->
     it 'respects deeply-nested dot-pathed arguments', ->
       expect(@instance?.meta?.owner?.name).to.equal 'Joe Shmoe'
 
+
+  describe 'extending factories', ->
+    before ->
+      Model = mongoose.model 'Kitten5', mongoose.Schema
+        name: { type: String, required: true }
+        age: { type: Number, required: true }
+        description: String
+
+      @factory = mongooseFactory(Model).define (callback) ->
+        @set 'name', 'Fluffy'
+        callback()
+
+    beforeEach (done) ->
+      @factory.json { description: 'Big ball of fluff' }
+      , (error, @instance) => done error
+
+    it 'combines default attributes', ->
+      expect(@instance).to.have.property 'name', 'Fluffy'
+      expect(@instance).to.have.property 'age'
+      expect(@instance.age).to.be.a 'number'
+
+    it 'takes inputs', ->
+      expect(@instance).to.have.property 'description', 'Big ball of fluff'
