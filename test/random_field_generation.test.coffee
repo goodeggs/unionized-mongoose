@@ -22,7 +22,7 @@ describe 'random field generation', ->
       @factory = mongooseFactory @Model
 
     beforeEach (done) ->
-      @factory.json (error, @instance) => done error
+      @factory.build (error, @instance) => done error
 
     it 'has an _id', ->
       expect(@instance._id).to.be.an.instanceOf mongoose.Types.ObjectId
@@ -50,6 +50,9 @@ describe 'random field generation', ->
     it 'will ignore non-required attributes', ->
       expect(@instance.description).to.be.undefined
 
+    it 'is a model', ->
+      expect(@instance).to.be.an.instanceof @Model
+
   describe 'arrays', ->
     before ->
       @Model = mongoose.model 'Kitten2', mongoose.Schema
@@ -61,7 +64,7 @@ describe 'random field generation', ->
       @factory = mongooseFactory @Model
 
     beforeEach (done) ->
-      @factory.json (error, @instance) => done error
+      @factory.build (error, @instance) => done error
 
     it 'can generate an array', ->
       expect(@instance.paws).to.be.an.instanceOf Array
@@ -82,7 +85,7 @@ describe 'random field generation', ->
       @factory = mongooseFactory @Model
 
     beforeEach (done) ->
-      @factory.json (error, @instance) => done error
+      @factory.build (error, @instance) => done error
 
     it 'are generated', ->
       expect(@instance?.meta?.owner?.name).to.have.length.of.at.least 1
@@ -101,7 +104,7 @@ describe 'random field generation', ->
       @factory = mongooseFactory @Model
 
     beforeEach (done) ->
-      @factory.json {
+      @factory.build {
         name: 'John Doe'
         meta:
           owner:
@@ -118,6 +121,9 @@ describe 'random field generation', ->
     it 'respects deeply-nested dot-pathed arguments', ->
       expect(@instance?.meta?.owner?.name).to.equal 'Joe Shmoe'
 
+    it 'is a model', ->
+      expect(@instance).to.be.an.instanceof @Model
+
 
   describe 'extending factories', ->
     before ->
@@ -131,7 +137,7 @@ describe 'random field generation', ->
         callback()
 
     beforeEach (done) ->
-      @factory.json { description: 'Big ball of fluff' }
+      @factory.build { description: 'Big ball of fluff' }
       , (error, @instance) => done error
 
     it 'combines default attributes', ->
@@ -142,5 +148,5 @@ describe 'random field generation', ->
     it 'takes inputs', ->
       expect(@instance).to.have.property 'description', 'Big ball of fluff'
 
-    it 'is still a model', ->
+    it 'is a model', ->
       expect(@instance).to.be.an.instanceof @Model
