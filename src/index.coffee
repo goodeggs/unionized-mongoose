@@ -14,13 +14,14 @@ buildFactoryFromSchema = (schema, mongoose) ->
         promises.push embedArray pathName, 2, unionized.define (callback) ->
           buildFactoryFromSchema.call(@, schemaType.schema, mongoose).nodeify(callback)
 
+      when schemaType.options?.factory?
+        val = schemaType.options.factory()
+        definition.set pathName, val unless val is undefined
+
       when pathName is '_id'
         definition.set pathName, new mongoose.Types.ObjectId()
 
       when not schemaType.isRequired then return
-
-      when schemaType.options?.factory?
-        definition.set pathName, schemaType.options.factory()
 
       when schemaType.defaultValue? and typeof schemaType.defaultValue isnt 'function'
         definition.set pathName, schemaType.defaultValue
