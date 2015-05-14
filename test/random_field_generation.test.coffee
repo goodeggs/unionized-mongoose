@@ -72,7 +72,7 @@ describe 'random field generation', ->
     it 'generates required properties on array elements', ->
       expect(@instance.paws[0]).to.be.a 'object'
       expect(@instance.paws[0]).to.have.property 'nickname'
-      expect(@instance.paws[0]).not.to.have.property 'clawCount'
+      expect(@instance.paws[0].clawCount).not.to.be.ok
 
   describe 'deeply-nested attributes', ->
     before ->
