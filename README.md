@@ -1,5 +1,6 @@
 # unionized-mongoose
 
+[![Build Status](https://travis-ci.org/goodeggs/unionized-mongoose.svg)](https://travis-ci.org/goodeggs/unionized-mongoose)
 [![NPM version](https://badge.fury.io/js/unionized-mongoose.png)](http://badge.fury.io/js/unionized-mongoose)
 
 Create unionized factories out of mongoose models
