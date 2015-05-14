@@ -18,6 +18,10 @@ describe 'random field generation', ->
         isHunter: { type: Boolean, required: true }
         bornAt: { type: Date, required: true }
         description: String
+        adoptionRef:
+          _id: type: String, required: true
+        ownerRef:
+          _id: type: mongoose.Schema.Types.ObjectId, required: true
 
       @factory = mongooseFactory @Model
 
@@ -43,6 +47,13 @@ describe 'random field generation', ->
       born = moment(@instance.bornAt)
       expect(born.isAfter  '2012-12-31').to.be.ok
       expect(born.isBefore '2014-01-01').to.be.ok
+
+    it 'can generate a referenced _id as an ObjectId', ->
+      expect(@instance.ownerRef._id).to.be.an.instanceof mongoose.Types.ObjectId
+
+    it 'can generate a referenced _id as a string', ->
+      expect(@instance.adoptionRef._id).to.be.a 'string'
+      expect(@instance.adoptionRef._id).not.to.be.an.instanceof mongoose.Types.ObjectId
 
     it 'will use provided defaults', ->
       expect(@instance.eyeColor).to.equal 'yellow'
