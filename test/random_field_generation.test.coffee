@@ -1,4 +1,4 @@
-mongooseFactory = require '../src'
+unionized = require '../src'
 {expect} = require 'chai'
 mongoose = require 'mongoose'
 moment = require 'moment'
@@ -19,10 +19,10 @@ describe 'random field generation', ->
         bornAt: { type: Date, required: true }
         description: String
 
-      @factory = mongooseFactory @Model
+      @factory = unionized.mongooseFactory @Model
 
     beforeEach (done) ->
-      @factory.build (error, @instance) => done error
+      @factory.createAsync (error, @instance) => done error
 
     it 'has an _id', ->
       expect(@instance._id).to.be.an.instanceOf mongoose.Types.ObjectId
@@ -55,16 +55,16 @@ describe 'random field generation', ->
 
   describe 'arrays', ->
     before ->
-      @Model = mongoose.model 'Kitten2', mongoose.Schema
+      Model = mongoose.model 'Kitten2', mongoose.Schema
         paws: [
           nickname: { type: String, required: true }
           clawCount: Number
         ]
 
-      @factory = mongooseFactory @Model
+      @factory = unionized.mongooseFactory Model
 
     beforeEach (done) ->
-      @factory.build (error, @instance) => done error
+      @factory.createAsync (error, @instance) => done error
 
     it 'can generate an array', ->
       expect(@instance.paws).to.be.an.instanceOf Array
@@ -82,15 +82,14 @@ describe 'random field generation', ->
             name: { type: String, required: true }
             age: Number
 
-      @factory = mongooseFactory @Model
+      @factory = unionized.mongooseFactory @Model
 
     beforeEach (done) ->
-      @factory.build (error, @instance) => done error
+      @factory.createAsync (error, @instance) => done error
 
     it 'are generated', ->
       expect(@instance?.meta?.owner?.name).to.have.length.of.at.least 1
       expect(@instance?.meta?.owner?.age).not.to.be.ok
-
 
   describe 'an instance generated with inputs', ->
     before ->
@@ -101,10 +100,10 @@ describe 'random field generation', ->
             name: { type: String, required: true }
             age: Number
 
-      @factory = mongooseFactory @Model
+      @factory = unionized.mongooseFactory @Model
 
     beforeEach (done) ->
-      @factory.build {
+      @factory.createAsync {
         name: 'John Doe'
         meta:
           owner:
@@ -124,7 +123,6 @@ describe 'random field generation', ->
     it 'is a model', ->
       expect(@instance).to.be.an.instanceof @Model
 
-
   describe 'extending factories', ->
     before ->
       @Model = mongoose.model 'Kitten5', mongoose.Schema
@@ -132,12 +130,10 @@ describe 'random field generation', ->
         age: { type: Number, required: true }
         description: String
 
-      @factory = mongooseFactory(@Model).define (callback) ->
-        @set 'name', 'Fluffy'
-        callback()
+      @factory = unionized.mongooseFactory(@Model).factory name: 'Fluffy'
 
     beforeEach (done) ->
-      @factory.build { description: 'Big ball of fluff' }
+      @factory.createAsync { description: 'Big ball of fluff' }
       , (error, @instance) => done error
 
     it 'combines default attributes', ->
