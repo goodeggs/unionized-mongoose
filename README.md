@@ -1,5 +1,7 @@
 # unionized-mongoose
 
+**Note: this module is _deprecated_ as of [unionized](https://github.com/goodeggs/unionized) 4.x.**
+
 [![Build Status](https://travis-ci.org/goodeggs/unionized-mongoose.svg)](https://travis-ci.org/goodeggs/unionized-mongoose)
 [![NPM version](https://badge.fury.io/js/unionized-mongoose.png)](http://badge.fury.io/js/unionized-mongoose)
 
